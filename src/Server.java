@@ -13,6 +13,7 @@ public class Server {
         HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", port), 0);
 
         server.createContext("/healthz", ex -> send(ex, 200, "ok"));
+        server.createContext("/rates", ex -> send(ex, 200, Converter.ratesText()));
 
         server.createContext("/", ex -> {
             if (ex.getRequestURI().getPath().equals("/")) {
