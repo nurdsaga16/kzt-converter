@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+mkdir -p build
+javac -d build src/*.java
+exec java -cp build Server
