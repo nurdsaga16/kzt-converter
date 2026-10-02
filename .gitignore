@@ -1,0 +1,11 @@
+# compiled classes
+build/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# macOS
+.DS_Store
