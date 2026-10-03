@@ -20,6 +20,15 @@ public class Converter {
         return currency != null && KZT_PER_UNIT.containsKey(currency.toUpperCase());
     }
 
+    /** Converts via tenge: amount * rate(from) / rate(to), rounded to 2 decimals. */
+    public static BigDecimal convert(String from, String to, BigDecimal amount) {
+        if (!supports(from) || !supports(to)) {
+            throw new IllegalArgumentException("unsupported currency");
+        }
+        BigDecimal inKzt = amount.multiply(KZT_PER_UNIT.get(from.toUpperCase()));
+        return inKzt.divide(KZT_PER_UNIT.get(to.toUpperCase()), 2, RoundingMode.HALF_UP);
+    }
+
     public static String ratesText() {
         StringBuilder sb = new StringBuilder();
         KZT_PER_UNIT.forEach((code, rate) -> sb.append(code).append(' ').append(rate.toPlainString()).append('\n'));
