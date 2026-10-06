@@ -3,10 +3,6 @@ import java.math.RoundingMode;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Conversion logic, kept apart from HTTP so it can be tested on its own.
- * Rates are hard-coded (tenge per 1 unit) — no database, no external API.
- */
 public class Converter {
 
     static final Map<String, BigDecimal> KZT_PER_UNIT = new TreeMap<>(Map.of(
@@ -20,7 +16,6 @@ public class Converter {
         return currency != null && KZT_PER_UNIT.containsKey(currency.toUpperCase());
     }
 
-    /** Converts via tenge: amount * rate(from) / rate(to), rounded to 2 decimals. */
     public static BigDecimal convert(String from, String to, BigDecimal amount) {
         if (!supports(from) || !supports(to)) {
             throw new IllegalArgumentException("unsupported currency");

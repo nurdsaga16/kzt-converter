@@ -13,13 +13,11 @@ import java.util.Map;
 public class Server {
 
     public static HttpServer makeServer(int port) throws IOException {
-        // 0.0.0.0, not 127.0.0.1 — so it is reachable from outside a container (week 5)
         HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", port), 0);
 
         server.createContext("/healthz", ex -> send(ex, 200, "ok"));
         server.createContext("/rates", ex -> send(ex, 200, Converter.ratesText()));
 
-        // GET /convert?from=USD&to=KZT&amount=10  ->  5000.00
         server.createContext("/convert", ex -> {
             Map<String, String> q = query(ex.getRequestURI().getRawQuery());
             String from = q.get("from"), to = q.get("to"), amount = q.get("amount");
@@ -77,7 +75,6 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
-        // whoever runs the service decides the port, not the code
         int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
         makeServer(port).start();
         System.out.println("Listening on port " + port);
