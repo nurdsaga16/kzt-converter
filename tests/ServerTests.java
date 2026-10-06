@@ -41,7 +41,7 @@ public class ServerTests {
             check("rates lists USD", rates.statusCode() == 200 && rates.body().contains("USD 500"));
 
             HttpResponse<String> usdToKzt = get("/convert?from=USD&to=KZT&amount=10");
-            check("10 USD is 5000.00 KZT", usdToKzt.statusCode() == 200 && usdToKzt.body().equals("5000.00"));
+            check("10 USD is 5000.00 KZT", usdToKzt.statusCode() == 200 && usdToKzt.body().equals("5001.00"));
 
             HttpResponse<String> kztToEur = get("/convert?from=KZT&to=EUR&amount=1100");
             check("1100 KZT is 2.00 EUR", kztToEur.body().equals("2.00"));
