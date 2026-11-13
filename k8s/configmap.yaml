@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kzt-config
+data:
+  PORT: "8080"
+  GREETING: "KZT converter"
