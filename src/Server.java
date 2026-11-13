@@ -39,7 +39,7 @@ public class Server {
 
         server.createContext("/", ex -> {
             if (ex.getRequestURI().getPath().equals("/")) {
-                send(ex, 200, "KZT converter. Try /rates or /convert?from=USD&to=KZT&amount=10");
+                send(ex, 200, System.getenv().getOrDefault("GREETING", "KZT converter") + ". Try /rates or /convert?from=USD&to=KZT&amount=10");
             } else {
                 send(ex, 404, "not found");
             }
